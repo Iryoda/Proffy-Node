@@ -1,0 +1,18 @@
+{
+    "type": "postgres",
+    "host": "localhost",
+    "port": 5432,
+    "username": "postgres",
+    "password": "docker",
+    "database": "proffy", 
+    "migrations": ["./src/shared/database/migrations_refactor/*.ts"],
+    "entities": [
+                "./src/useCases/User/entities/*.ts", 
+                "./src/useCases/Connections/entities/*.ts",
+                "./src/useCases/Schedule/entities/*.ts",
+                "./src/useCases/Classes/entities/*.ts"    
+            ],
+    "cli": {
+        "migrationsDir": "./src/shared/database/migrations_refactor"
+    }
+}
