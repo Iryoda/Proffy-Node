@@ -17,12 +17,10 @@ export default class Schedule {
     @Column()
     to: number;
 
-    @Column()
-    class_id: string;
 
-    // @ManyToOne(()=> Class, (classes: Class) => classes.id)
-    // @JoinColumn({name: 'class_id'})
-    // class: Class;
+    @ManyToOne(()=> Class, classes => classes.schedules)
+    @JoinColumn({name: "class_id"})
+    classes: Class;
     
 }
 

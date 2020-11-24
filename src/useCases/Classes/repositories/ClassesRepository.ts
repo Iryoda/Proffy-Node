@@ -1,25 +1,30 @@
 import Class from "../entities/entity";
 
 import { EntityRepository, Repository } from "typeorm";
+import convertHourToMinutes from "../../../shared/utils/convertHourToMinutes";
+import Schedule from "../../Schedule/entities/entity";
 
 @EntityRepository(Class)
 
 export default class ClassRepository extends Repository<Class>{
 
     public async filterByWeekday(week_day: string): Promise<Class[] | null>{
-        const searchedByWeekday = await this.find({
-            where:{week_day}
-        });
+        const searchedByWeekday = await this.createQueryBuilder("classes")
+        .leftJoinAndSelect("classes.schedules", "schedules")
+        .where("schedules.week_day = :weekDay", {weekDay: week_day})
+        .getMany();
 
         return searchedByWeekday || null;
     }
 
-    public async filterByTime(time: number): Promise<Class[] | null>{
-        const searchedByWeekday = await this.find({
-            where:{time}
-        });
+    public async filterByTime(time: string): Promise<Class[] | null>{
+        const converted = convertHourToMinutes(time);
+        const searchedByTime = await this.createQueryBuilder("classes")
+        .leftJoinAndSelect("classes.schedules", "schedules")
+        .where("schedules.from <= :from", {from: converted})
+        .getMany();
 
-        return searchedByWeekday || null;
+        return searchedByTime|| null;
     }
 
     public async  filterBySubject(subject: string): Promise<Class[] | null>{

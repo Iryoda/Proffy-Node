@@ -1,4 +1,3 @@
-import { classesRepository } from '../../shared/container/index';
 
 import CreateClassService from '../../useCases/Classes/services/CreateClassServices';
 import ListClassService from '../../useCases/Classes/services/ListClassService';
@@ -59,5 +58,52 @@ export default class ClassesController{
             });
         }
     
-    };
+    }
+    
+    async findByTime(request: Request, response: Response){
+        const {time} = request.query;
+
+        try {
+            const classRepository = getCustomRepository(ClassRepository);
+
+            const filtered = await classRepository.filterByTime(time as string);
+
+            return response.json(filtered);
+
+        } catch (err) {
+            return response.json({"error": err});
+        }
+    } 
+
+    async findBySubject(request: Request, response: Response){
+        const {subject} = request.query;
+
+        try {
+            const classRepository = getCustomRepository(ClassRepository);
+
+            const filtered = await classRepository.filterBySubject(subject as string);
+
+            return response.json(filtered);
+
+        } catch (err) {
+            return response.json({"error": err});
+        }
+    } 
+
+    async findByWeekday(request: Request, response: Response){
+        const body = request.query;
+
+        const week_day = parseInt(body.week_day as string);
+        console.log(week_day);
+        try {
+            const classRepository = getCustomRepository(ClassRepository);
+
+            const filtered = await classRepository.filterByWeekday(week_day);
+
+            return response.json(filtered);
+
+        } catch (err) {
+            return response.json({"error": err});
+        }
+    } 
 } 

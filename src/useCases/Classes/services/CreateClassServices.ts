@@ -56,13 +56,18 @@ export default class CreateClassService{
             const from_f = convertHourToMinutes(scheduleItem.from);
             const to_f = convertHourToMinutes(scheduleItem.to)
             return scheduleRepository.create({
-                class_id: classID,
                 week_day: scheduleItem.week_day,
                 from: from_f,
                 to: to_f });
             });
- 
-        await scheduleRepository.save(classSchedule);
+
+            classSchedule.forEach((item) =>{
+                item.classes = classesCreated;
+            });
+            
+            await scheduleRepository.save(classSchedule);
+
+        ;
 
         return classesCreated;
     }

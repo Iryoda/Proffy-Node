@@ -22,12 +22,9 @@ export default class ListClassService{
             throw Error('Missing filters to search classes');
         }
 
-        const timeInMinutes = convertHourToMinutes(time);
-
-
         const class_subject = await classesRepository.filterBySubject(subject);
 
-        const class_schedule = await classesRepository.filterByTime(timeInMinutes);
+        const class_schedule = await classesRepository.filterByTime(time);
 
         const class_week_day = await classesRepository.filterByWeekday(week_day);
 

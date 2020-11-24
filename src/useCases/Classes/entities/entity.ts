@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import Schedule from '../../Schedule/entities/entity';
 
 @Entity('classes')
@@ -17,7 +17,7 @@ export default class Class {
     @Column()
     user_id: string;
 
-    // @OneToMany(()=>Schedule, (schedule: Schedule)=> schedule.class_id, {onDelete: "CASCADE", onUpdate:"CASCADE"})
-    // schedule: Schedule[];
+    @OneToMany(()=>Schedule, (schedule: Schedule)=> schedule.classes, {onDelete: "CASCADE", onUpdate:"CASCADE"})
+    schedules: Schedule[];
     
 }

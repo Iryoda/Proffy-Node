@@ -6,5 +6,8 @@ const classesRouter = Router();
 
 classesRouter.post('/', classController.create);
 classesRouter.get('/',  classController.index);
+classesRouter.get('/time',  classController.findByTime);
+classesRouter.get('/subject',  classController.findBySubject);
+classesRouter.get('/weekday',  classController.findByWeekday);
 
 export default classesRouter;
