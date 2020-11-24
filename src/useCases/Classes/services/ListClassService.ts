@@ -33,8 +33,8 @@ export default class ListClassService{
         }
         
         const intersection_classes_filtered = class_subject.filter(clas1 => {
-            const in_array_1 = class_schedule.filter(clas2 => clas1.id == clas2.id) 
-            const in_array_2 = class_week_day.filter(clas2 => clas1.id == clas2.id) 
+            const in_array_1 = class_week_day.filter(clas2 => clas1.id == clas2.id) 
+            const in_array_2 = class_schedule.filter(clas2 => clas1.id == clas2.id) 
             return in_array_1.length /*&& in_array_2.length*/;
         });
         

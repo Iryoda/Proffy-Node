@@ -22,6 +22,7 @@ export default class ClassRepository extends Repository<Class>{
         const searchedByTime = await this.createQueryBuilder("classes")
         .leftJoinAndSelect("classes.schedules", "schedules")
         .where("schedules.from <= :from", {from: converted})
+        .andWhere("schedules.to > :to ", {to: converted })
         .getMany();
 
         return searchedByTime|| null;
@@ -29,6 +30,7 @@ export default class ClassRepository extends Repository<Class>{
 
     public async  filterBySubject(subject: string): Promise<Class[] | null>{
         const searchedByWeekday = await this.find({
+            relations: ["schedules"],
             where:{subject}
         });
 
